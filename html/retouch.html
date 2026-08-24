@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커뮤</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/write.css">
+</head>
+<body>
+    <header>
+        <div>
+            <a href="../html/main.html">
+                <div id="logo_box">
+                    <h1><img src="../image/logo.png">커뮤</h1>
+                </div>
+            </a>
+        </div>
+    </header>
+    <main>
+        
+        <div id="write_box">
+            <div>
+                <h2>게시글 수정</h2>
+            </div>
+            <form id="write_form">
+                <div id="write_title">
+                    <label for="input_title"></label>
+                    <input id="input_title" name="title" placeholder="제목을 입력하세요" required class="write_input">
+                </div>
+                <div>
+                    <label for="input_content"></label>
+                    <textarea id="input_content" name="content" placeholder="내용을 입력하세요" required class="write_input"></textarea>
+                </div>
+                <div>
+                    <button type="submit" class="info_button">등록</button>
+                    <button type="reset" class="info_button">취소</button>
+                </div>
+            </form>
+
+        </div>
+    </main>
+
+    <footer id="bottom">
+        
+    </footer>
+    <script src="../js/retouch.js"></script>
+</body>
+</html>

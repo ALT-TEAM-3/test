@@ -1,0 +1,39 @@
+#detail_box {
+    width: 800px;
+    margin: 30px auto;
+}
+
+
+#title_area h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+
+#info_div {
+    color: gray;
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#info_div span {
+    margin-right: 8px;
+}
+
+#content_area {
+    min-height: 200px;
+    padding: 15px 0;
+    font-size: 16px;
+}
+
+
+#btn_area {
+    margin-top: 15px;
+    text-align: center;
+}
+
+#btn_area button {
+    margin-left: 5px;
+}
