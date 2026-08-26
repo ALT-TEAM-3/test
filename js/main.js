@@ -7,20 +7,20 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    const logoutBtn = document.querySelector('#my_info button');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', function() {
+    const logoutButton = document.querySelector('#my_info button');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function() {
             localStorage.removeItem('token'); 
             alert('로그아웃되었습니다.');
             location.href = 'login.html'; 
         });
     }
 
-    fetchPosts();
+    fetchPosts(0);
 });
- //api 호출 
-function fetchPosts() {
-    fetch('http://localhost:8080/api/posts', {
+
+function fetchPosts(page = 0) {
+    fetch(`http://localhost:8080/api/posts?page=${page}&size=10`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ function fetchPosts() {
         const postList = document.getElementById('post_list');
         postList.innerHTML = '';
 
-        const posts = data.content || data;
+        const posts = data.content || (Array.isArray(data) ? data : []);
 
         if (posts.length === 0) {
             postList.innerHTML = '<div class="post_item"><span style="padding: 20px;">등록된 게시글이 없습니다.</span></div>';
@@ -50,15 +50,43 @@ function fetchPosts() {
 
             postItem.innerHTML = `
                 <span class="col_id">${post.id}</span>
-                <a href="../html/detail.html?id=${post.id}" class="col_title">${post.title}</a>
-                <span class="col_author">${post.author || post.writer || '작성자'}</span>
+                <a href="../html/content.html?id=${post.id}" class="col_title">${post.title}</a>
+                <span class="col_author">${(post.email || post.authorEmail || post.author || '').split('@')[0] || '불러오지 못함'}</span>
                 <span class="col_date">${post.createdAt ? post.createdAt.substring(0, 10) : ''}</span>
             `;
 
             postList.appendChild(postItem);
         });
+
+        if (data.totalPages !== undefined) {
+            renderPagination(data.totalPages, data.number || page);
+        }
     })
     .catch(function(error) {
         console.log('에러 발생:', error);
     });
+}
+
+function renderPagination(totalPages, currentPage) {
+    const pageContainer = document.getElementById('page');
+    if (!pageContainer) return;
+
+    pageContainer.innerHTML = '';
+
+    for (let i = 0; i < totalPages; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.type = 'button';
+        pageButton.innerText = i + 1;
+
+        if (i === currentPage) {
+            pageButton.style.fontWeight = 'bold';
+            pageButton.style.textDecoration = 'underline';
+        }
+
+        pageButton.onclick = function() {
+            fetchPosts(i);
+        };
+
+        pageContainer.appendChild(pageButton);
+    }
 }

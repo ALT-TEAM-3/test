@@ -25,8 +25,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })
     .then(function(user) {
-        document.getElementById('user_id').value = user.email || user.userId || user.id;
-        document.getElementById('user_name').value = user.name || user.username;
+        const userEmail = user.email || user.userId || user.id || '';
+
+        let displayName = '';
+        if (userEmail && userEmail.includes('@')) {
+            displayName = userEmail.split('@')[0];
+        } else {
+            displayName = user.name || user.username || userEmail || '사용자';
+        }
+
+        document.getElementById('user_id').value = userEmail;
+        document.getElementById('user_name').value = displayName; 
     })
     .catch(function(error) {
         console.log('에러 발생:', error);

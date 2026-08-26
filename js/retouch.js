@@ -35,9 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('에러 발생:', error);
         });
 
-    const resetBtn = document.querySelector('button[type="reset"]');
-    if (resetBtn) {
-        resetBtn.addEventListener('click', function(e) {
+    const resetButton = document.querySelector('button[type="reset"]');
+    if (resetButton) {
+        resetButton.addEventListener('click', function(e) {
             e.preventDefault(); 
             location.href = `content.html?id=${postId}`;
         });

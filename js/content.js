@@ -11,18 +11,17 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     try {
-        let myId = null;
+        let myEmail = null;
         if (token) {
             const userRes = await fetch('http://localhost:8080/api/users/me', {
                 headers: { 'Authorization': 'Bearer ' + token }
             });
             if (userRes.ok) {
                 const userData = await userRes.json();
-                myId = userData.id;
+                myEmail = userData.email || userData.userEmail;
             }
         }
 
-        // API 호출
         const postRes = await fetch(`http://localhost:8080/api/posts/${postId}`);
         if (!postRes.ok) {
             alert('게시글을 불러올 수 없습니다.');
@@ -32,46 +31,58 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         const post = await postRes.json();
 
+        const rawAuthor = post.email || post.authorEmail || post.writerEmail || post.author || post.writer || '';
+
+        const authorName = rawAuthor.includes('@') ? rawAuthor.split('@')[0] : (rawAuthor || '익명');
+
         document.querySelector('#title_area h2').innerText = post.title;
+        
         document.querySelector('#info_div').innerHTML = `
-            <span>작성자: ${post.author || post.writer || '익명'}</span>
+            <span>작성자: ${authorName}</span>
             <span>|</span>
             <span>${post.createdAt ? post.createdAt.substring(0, 10) : ''}</span>
         `;
         document.querySelector('#content_area p').innerText = post.content;
 
-        const btnArea = document.getElementById('btn_area');
-        const authorId = post.userId || post.authorId || post.writerId;
+        const buttonArea = document.getElementById('button_area');
 
-        if (myId && myId === authorId) {
-            const editBtn = btnArea.children[1];
-            const deleteBtn = btnArea.children[2];
+        const isOwner = myEmail && rawAuthor && myEmail.trim().toLowerCase() === rawAuthor.trim().toLowerCase();
 
-            editBtn.onclick = function() {
-                location.href = `retouch.html?id=${postId}`;
-            };
+        const editButton = buttonArea.children[1];
+        const deleteButton = buttonArea.children[2];
 
-            deleteBtn.addEventListener('click', function() {
-                if (confirm('정말 이 게시글을 삭제하시겠습니까?')) {
-                    fetch(`http://localhost:8080/api/posts/${postId}`, {
-                        method: 'DELETE',
-                        headers: { 'Authorization': 'Bearer ' + token }
-                    })
-                    .then(res => {
-                        if (res.status === 204 || res.ok) {
-                            alert('게시글이 삭제되었습니다.');
-                            location.href = 'main.html';
-                        } else {
-                            alert('게시글 삭제에 실패했습니다.');
-                        }
-                    })
-                    .catch(err => console.log('삭제 에러:', err));
-                }
-            });
-        } else {
-            btnArea.children[1].style.display = 'none';
-            btnArea.children[2].style.display = 'none';
-        }
+        editButton.style.display = '';
+        deleteButton.style.display = '';
+
+        editButton.onclick = function() {
+            if (!isOwner) {
+                alert('수정 권한이 없습니다.');
+                return;
+            }
+            location.href = `retouch.html?id=${postId}`;
+        };
+        deleteButton.onclick = function() {
+            if (!isOwner) {
+                alert('삭제 권한이 없습니다.');
+                return;
+            }
+
+            if (confirm('정말 이 게시글을 삭제하시겠습니까?')) {
+                fetch(`http://localhost:8080/api/posts/${postId}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': 'Bearer ' + token }
+                })
+                .then(res => {
+                    if (res.status === 204 || res.ok) {
+                        alert('게시글이 삭제되었습니다.');
+                        location.href = 'main.html';
+                    } else {
+                        alert('게시글 삭제에 실패했습니다.');
+                    }
+                })
+                .catch(err => console.log('삭제 에러:', err));
+            }
+        };
 
     } catch (error) {
         console.log('에러 발생:', error);
