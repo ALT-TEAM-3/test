@@ -1,0 +1,18 @@
+#SignUPpage{
+    color: black;
+}
+#login_page{
+    color: gray;
+}
+
+#signUp{
+    background-color: rgb(70, 153, 253);
+    color: white;
+}
+
+#re_pwfiled{
+    margin-top: 20px;
+}
+#name_filed{
+    margin-bottom: 20px;
+}

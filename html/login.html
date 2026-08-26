@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커뮤</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <header>
+        <div>
+            <a href="../html/main.html">
+                <div id="logo_box">
+                    <h1><img src="../image/logo.png">커뮤</h1>
+                </div>
+            </a>
+        </div>
+        <div id="my_info">
+
+        </div>
+    </header>
+    <main>
+        <div id="login_box">
+            <div id="position_box">
+                <div id="login_sign">
+                    <a href="../html/login.html" class="login_sign_button" id="login_page"><h2>로그인</h2></a>
+                    <a href="../html/signup.html" class="login_sign_button" id="SignUPpage"><h2>회원가입</h2></a>
+                </div>
+                <form id="login_form">
+                    <div id="login_filed">
+                        <label for="email">계정이름</label>
+                        <input id="email" name="email" type="email" minlength="6" required class="input_box" placeholder="이메일을 입력하세요">
+                    </div>
+                    <div id="pw_filed">
+                        <label for="pw">비밀번호</label>
+                        <input id="pw" name="pw" type="password" minlength="8" maxlength="12" required class="input_box" placeholder="비밀번호를 입력하세요">
+                    </div>
+                    <div id="button_filed">
+                        <button type="submit" class="form_button" id="login">
+                            로그인
+                        </button>
+                        <button type="reset" class="form_button" id="reset">
+                            초기화
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer id="bottom">
+    </footer>
+    <script src="../js/login.js"></script>
+</body>
+</html>

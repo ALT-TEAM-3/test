@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'YeogiOttaeJalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-display: swap;
+}
+
+h2{
+    margin-bottom: 40px;
+}
+body{
+    background-color: rgb(242, 242, 242);
+}
+
+#login_form{
+    margin-top: 40px;
+}
+#login_box{
+    width: 400px;
+    height: 600px;
+    border: 1px solid rgb(79, 79, 79);
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 2px 2px #898989;
+    
+    
+}
+
+#position_box{
+    
+    margin-top: 30px;
+    margin-left: 60px;
+    margin-right: 40px;
+    
+}
+
+.input_box{
+    /* background-color: rgb(238, 238, 238); */
+    display: block;
+    width: 250px;
+}
+
+#login_filed{
+    margin-bottom: 20px;
+}
+
+.form_button{
+    width: 70px;
+    height: 25px;
+    border-radius: 4px;
+}
+
+#PW{
+    width: 100px;
+    height: 30px;
+}
+
+#login{
+    background-color: rgb(70, 153, 253);
+    color: white;
+}
+
+input{
+    margin-top: 3px;
+    height: 30px;
+    font-size: 18px;
+    border: none;
+    border-bottom: 1px solid black;
+
+}
+
+#button_filed{
+    margin-top: 5px;
+}
+
+form input:focus{
+    outline: none;
+}
+
+#login_sign{
+    display: flex;
+    
+}
+.login_sign_button{
+    width: 450px;
+    height: 75px;
+    text-decoration: none;
+    color: black;
+    margin-left: 20px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.login_sign_button :hover{
+    color: black;
+}
+
+#SignUPpage{
+    color: gray;
+}
